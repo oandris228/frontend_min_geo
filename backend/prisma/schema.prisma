@@ -12,3 +12,13 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model geometry {
+  id Int @id @default(autoincrement())
+  name String
+  shape_type String
+  defining_equation String
+  favorite_job String
+  curvature_personality String
+  coolness Int
+}
