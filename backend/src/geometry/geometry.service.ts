@@ -1,15 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGeometryDto } from './dto/create-geometry.dto';
 import { UpdateGeometryDto } from './dto/update-geometry.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class GeometryService {
+  constructor(private readonly db: PrismaService) {}
+
   create(createGeometryDto: CreateGeometryDto) {
     return 'This action adds a new geometry';
   }
 
   findAll() {
-    return `This action returns all geometry`;
+    return this.db.minimalgeometry.findMany();
   }
 
   findOne(id: number) {
@@ -17,10 +20,15 @@ export class GeometryService {
   }
 
   update(id: number, updateGeometryDto: UpdateGeometryDto) {
-    return `This action updates a #${id} geometry`;
+    return this.db.minimalgeometry.update({
+      where: {id},
+      data: updateGeometryDto
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} geometry`;
+    return this.db.minimalgeometry.delete({
+      where: { id }
+    });
   }
 }
