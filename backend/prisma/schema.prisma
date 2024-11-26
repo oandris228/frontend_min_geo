@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model geometry {
+model minimalgeometry {
   id Int @id @default(autoincrement())
   name String
   shape_type String
