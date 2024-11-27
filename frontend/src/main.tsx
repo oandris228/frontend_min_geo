@@ -8,6 +8,7 @@ import Kereses from './components/Kereses.tsx'
 import NovCsokk from './components/NovCsokk.tsx'
 import Modify from './components/modify.tsx'
 import Toggle from './components/Toggle.tsx'
+import Navi from './components/Navi.tsx'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
 ])
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <Navi/>
     <RouterProvider router={router}></RouterProvider>
   </StrictMode>,
 )
