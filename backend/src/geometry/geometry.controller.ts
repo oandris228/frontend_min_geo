@@ -28,6 +28,11 @@ export class GeometryController {
     }
   }
 
+  @Get('orderby/:order')
+  orderBy(@Param('order') order: string) {
+    return this.geometryService.orderBy(order)
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.geometryService.findOne(+id);

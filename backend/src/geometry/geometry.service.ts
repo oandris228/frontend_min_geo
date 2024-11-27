@@ -35,10 +35,17 @@ export class GeometryService {
     });
   }
 
-  sortBy() {
-    return this.db.minimalgeometry.findMany({
-      orderBy: {coolness: 'desc'},
-    });
+  orderBy(order: string) {
+    if (order == "desc") {
+      return this.db.minimalgeometry.findMany({
+        orderBy: {coolness: 'desc'},
+      });
+    }
+    else {
+      return this.db.minimalgeometry.findMany({
+        orderBy: {coolness: 'asc'},
+      });
+    }
   }
 
   pagination(currentpage: number) {

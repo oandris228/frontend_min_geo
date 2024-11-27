@@ -7,6 +7,7 @@ import Listazas from './components/Listazas.tsx'
 import Kereses from './components/Kereses.tsx'
 import NovCsokk from './components/NovCsokk.tsx'
 import Modify from './components/modify.tsx'
+import { Felvetel } from './components/Felvetel.tsx'
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,18 @@ const router = createBrowserRouter([
   },
   {
     path: "/edit/:id",
+    element: <Modify />
+  },
+  {
+    path: "/felvetel",
+    element: <Felvetel />
+  },
+  {
+    path: "/rendezes",
+    element: <Modify />
+  },
+  {
+    path: "/paginacio",
     element: <Modify />
   },
 

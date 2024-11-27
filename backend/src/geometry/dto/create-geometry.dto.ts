@@ -5,4 +5,5 @@ export class CreateGeometryDto {
     favorite_job: string;
     curvature_personality: string;
     coolness: number;
+    visibility = true;
 }
