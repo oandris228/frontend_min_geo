@@ -21,4 +21,5 @@ model minimalgeometry {
   favorite_job String
   curvature_personality String
   coolness Int
+  visibility Boolean
 }
