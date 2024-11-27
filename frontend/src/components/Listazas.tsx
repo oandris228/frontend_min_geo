@@ -1,10 +1,12 @@
 import { useEffect, useState, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 export default function Listazas(){
     const [geometries, setGeometries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-  
+    const navigate = useNavigate();
+
     useEffect(() => {
       const fetchGeometries = async () => {
         try {
@@ -24,6 +26,27 @@ export default function Listazas(){
       fetchGeometries();
     }, []);
   
+    const handleDelete = async (geometryId: number) => {
+        try {
+            const response = await fetch(`http://localhost:3000/geometry/${geometryId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                setGeometries(prevGeometries => prevGeometries.filter(geometry => geometry.id !== geometryId));
+                console.log('geometry deleted successfully');
+            } else {
+                console.error('Failed to delete geometry');
+            }
+        } catch (error) {
+            console.error('Error deleting geometry:', error);
+        }
+    };
+
+    const handleChange = (id: number) => {
+        navigate(`/edit/${id}`);
+    };
+
     if (loading) return <p>Loading geometries...</p>;
     if (error) return <p>Error fetching data: {error}</p>;
 
@@ -43,6 +66,8 @@ export default function Listazas(){
                     <th>favorite_job</th>
                     <th>curvature_personality</th>
                     <th>coolness</th>
+                    <th>Törlés</th>
+                    <th>Módosítás</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,6 +80,8 @@ export default function Listazas(){
                     <td>{geometry.favorite_job}</td>
                     <td>{geometry.curvature_personality}</td>
                     <td>{geometry.coolness}</td>
+                    <td><button className="btn btn-danger" onClick={() => {handleDelete(geometry.id)}}>Törlés</button></td>
+                    <td><button className="btn btn-primary" onClick={() => {handleChange(geometry.id)}}>Módosítás</button></td>
                     </tr>
                 ))}
                 </tbody>

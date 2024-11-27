@@ -16,7 +16,7 @@ export class GeometryService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} geometry`;
+    return this.db.minimalgeometry.findUnique({ where: {id}});
   }
 
   update(id: number, updateGeometryDto: UpdateGeometryDto) {

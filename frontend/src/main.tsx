@@ -6,6 +6,7 @@ import './index.css'
 import Listazas from './components/Listazas.tsx'
 import Kereses from './components/Kereses.tsx'
 import NovCsokk from './components/NovCsokk.tsx'
+import Modify from './components/modify.tsx'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/novcsokk",
     element: <NovCsokk />
+  },
+  {
+    path: "/edit/:id",
+    element: <Modify />
   },
 
 ])
