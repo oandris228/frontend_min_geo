@@ -1,12 +1,13 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-export default function Listazas(){
+
+export default function Kereses(){
     const [geometries, setGeometries] = useState([]);
+    const [filteredGeometries, setFilteredGeometries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
-
+    const [searchTerm, setSearchTerm] = useState('');
+  
     useEffect(() => {
       const fetchGeometries = async () => {
         try {
@@ -16,6 +17,7 @@ export default function Listazas(){
           }
           const data = await response.json();
           setGeometries(data);
+          setFilteredGeometries(data);
         } catch (err) {
           setError(err.message);
         } finally {
@@ -25,28 +27,20 @@ export default function Listazas(){
   
       fetchGeometries();
     }, []);
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const term = event.target.value.toLowerCase();
+        setSearchTerm(term);
+        const filtered = geometries.filter(
+            (geo) =>
+                geo.name.toLowerCase().includes(term) ||
+                geo.shape_type.toLowerCase().includes(term) ||
+                geo.favorite_job.toLowerCase().includes(term) ||
+                geo.curvature_personality.toLowerCase().includes(term)
+        );
+        setFilteredGeometries(filtered);
+    };
   
-    const handleDelete = async (geometryId: number) => {
-        try {
-            const response = await fetch(`http://localhost:3000/geometry/${geometryId}`, {
-                method: 'DELETE',
-            });
-
-            if (response.ok) {
-                setGeometries(prevGeometries => prevGeometries.filter(geometry => geometry.id !== geometryId));
-                console.log('geometry deleted successfully');
-            } else {
-                console.error('Failed to delete geometry');
-            }
-        } catch (error) {
-            console.error('Error deleting geometry:', error);
-        }
-    };
-
-    const handleChange = (id: number) => {
-        navigate(`/edit/${id}`);
-    };
-
     if (loading) return <p>Loading geometries...</p>;
     if (error) return <p>Error fetching data: {error}</p>;
 
@@ -55,7 +49,22 @@ export default function Listazas(){
 
     return <>
         <div className="container mt-4">
-            <h1>Minimal Geometry listázás</h1>
+            <h1>Minimal Geometry Keresés</h1>
+
+            <form>
+                <label>
+                    Keresés:
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={handleSearch}
+                        placeholder="Keresés..."
+                    />
+                </label>
+            </form>
+
+            <h2>Lista</h2>
+
             <table className="table table-striped table-bordered">
                 <thead className="thead-dark">
                 <tr>
@@ -66,12 +75,10 @@ export default function Listazas(){
                     <th>favorite_job</th>
                     <th>curvature_personality</th>
                     <th>coolness</th>
-                    <th>Törlés</th>
-                    <th>Módosítás</th>
                 </tr>
                 </thead>
                 <tbody>
-                {geometries.map((geometry) => (
+                {filteredGeometries.map((geometry) => (
                     <tr key={geometry.id}>
                     <td>{geometry.id}</td>
                     <td>{geometry.name}</td>
@@ -80,8 +87,6 @@ export default function Listazas(){
                     <td>{geometry.favorite_job}</td>
                     <td>{geometry.curvature_personality}</td>
                     <td>{geometry.coolness}</td>
-                    <td><button className="btn btn-danger" onClick={() => {handleDelete(geometry.id)}}>Törlés</button></td>
-                    <td><button className="btn btn-primary" onClick={() => {handleChange(geometry.id)}}>Módosítás</button></td>
                     </tr>
                 ))}
                 </tbody>
