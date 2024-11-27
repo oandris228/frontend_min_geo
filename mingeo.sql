@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Nov 25. 09:05
+-- Létrehozás ideje: 2024. Nov 27. 10:11
 -- Kiszolgáló verziója: 10.4.24-MariaDB
 -- PHP verzió: 8.1.6
 
@@ -44,7 +44,7 @@ CREATE TABLE `minimalgeometry` (
 INSERT INTO `minimalgeometry` (`id`, `name`, `shape_type`, `defining_equation`, `favorite_job`, `curvature_personality`, `coolness`) VALUES
 (1, 'Wiggletorus', 'Surface', 'x^2 + y^2 + z^2 = sin(xy)', 'Pretends to be a playground slide', 'Roller Coaster', 8),
 (2, 'Flat-y McFlatface', 'Plane', 'z = 0', 'Serving as the most boring part of 3D space', 'Perfectly Balanced', 3),
-(3, 'SpaghettiLoop', 'Curve', 'x = cos(t), y = sin(t), z = t', 'Hangs out in fancy pasta dishes', 'Twisty But Fun', 7),
+(3, 'SpaghettiLoop', 'Curve', 'x = cos(t), y = sin(t), z = t', 'Hangs out in fancy pasta dishes', 'Twisty But Fun', 6),
 (4, 'Soapinator', 'Surface', 'z = sqrt(x^2 + y^2)', 'Lives in soap bubbles, obviously', 'Chill AF', 10),
 (5, 'InfinityPretzel', 'Surface', 'sin(x) * sin(y) = z', 'Gets stuck in pretzel machines', 'Wavy and Proud', 6),
 (6, 'TwizzleStick', 'Curve', 'x = t^2, y = t^3, z = t^4', 'Pretends to be a candy cane', 'Super Twisty', 7),
@@ -62,6 +62,16 @@ INSERT INTO `minimalgeometry` (`id`, `name`, `shape_type`, `defining_equation`, 
 --
 ALTER TABLE `minimalgeometry`
   ADD PRIMARY KEY (`id`);
+
+--
+-- A kiírt táblák AUTO_INCREMENT értéke
+--
+
+--
+-- AUTO_INCREMENT a táblához `minimalgeometry`
+--
+ALTER TABLE `minimalgeometry`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
