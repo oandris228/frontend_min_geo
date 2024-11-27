@@ -7,6 +7,7 @@ import Listazas from './components/Listazas.tsx'
 import Kereses from './components/Kereses.tsx'
 import NovCsokk from './components/NovCsokk.tsx'
 import Modify from './components/modify.tsx'
+import Toggle from './components/Toggle.tsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/kereses",
     element: <Kereses />
+  },
+  {
+    path: "/toggle",
+    element: <Toggle />
   },
   {
     path: "/novcsokk",
