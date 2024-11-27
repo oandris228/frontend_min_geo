@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { GeometryService } from './geometry.service';
 import { CreateGeometryDto } from './dto/create-geometry.dto';
 import { UpdateGeometryDto } from './dto/update-geometry.dto';
@@ -15,6 +15,17 @@ export class GeometryController {
   @Get()
   findAll() {
     return this.geometryService.findAll();
+  }
+
+  @Get('pagination')
+  pagination(@Query('page') currentpage?: string) {
+
+    if (currentpage) {
+      return this.geometryService.pagination(+currentpage);
+    }
+    else{
+      return this.geometryService.pagination(0);
+    }
   }
 
   @Get(':id')

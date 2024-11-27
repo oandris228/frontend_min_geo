@@ -5,10 +5,13 @@ import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class GeometryService {
+  
   constructor(private readonly db: PrismaService) {}
 
   create(createGeometryDto: CreateGeometryDto) {
-    return 'This action adds a new geometry';
+    return this.db.minimalgeometry.create({
+      data: createGeometryDto
+    });
   }
 
   findAll() {
@@ -30,5 +33,18 @@ export class GeometryService {
     return this.db.minimalgeometry.delete({
       where: { id }
     });
+  }
+
+  sortBy() {
+    return this.db.minimalgeometry.findMany({
+      orderBy: {coolness: 'desc'},
+    });
+  }
+
+  pagination(currentpage: number) {
+    return this.db.minimalgeometry.findMany({
+      take: 5,
+      skip: 5*currentpage
+    })
   }
 }
