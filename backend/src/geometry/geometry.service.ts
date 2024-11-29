@@ -9,6 +9,7 @@ export class GeometryService {
   constructor(private readonly db: PrismaService) {}
 
   create(createGeometryDto: CreateGeometryDto) {
+    console.log("function lefut")
     return this.db.minimalgeometry.create({
       data: createGeometryDto
     });

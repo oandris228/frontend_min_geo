@@ -1,16 +1,22 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-export default function Listazas(){
+export default function Rendezes(){
     const [geometries, setGeometries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [fetchlink, setFetchlink] = useState("http://localhost:3000/geometry");
     const navigate = useNavigate();
+
+
+    function sortPhones(order: string): void {
+      setFetchlink(`http://localhost:3000/geometry/orderby/${order}`);
+    }
 
     useEffect(() => {
       const fetchGeometries = async () => {
         try {
-          const response = await fetch("http://localhost:3000/geometry");
+          const response = await fetch(fetchlink);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
@@ -24,17 +30,14 @@ export default function Listazas(){
       };
   
       fetchGeometries();
-    }, []);
+    }, [fetchlink]);
 
     if (loading) return <p>Loading geometries...</p>;
     if (error) return <p>Error fetching data: {error}</p>;
 
-
-
-
     return <>
         <div className="container mt-4">
-            <h1>Minimal Geometry listázás</h1>
+            <h1>Minimal Geometry rendezés (coolness szerint)</h1>
             <table className="table table-striped table-bordered">
                 <thead className="thead-dark">
                 <tr>
@@ -45,8 +48,22 @@ export default function Listazas(){
                     <th>favorite_job</th>
                     <th>curvature_personality</th>
                     <th>coolness</th>
-                    <th>Törlés</th>
-                    <th>Módosítás</th>
+                    <th>
+                      <button
+                          onClick={() => sortPhones('asc')}
+                          style={{ textDecoration: 'none', border: 'none', background: 'none' }}
+                          >
+                          &#8593;
+                      </button>
+                    </th>
+                    <th>
+                      <button
+                            onClick={() => sortPhones('desc')}
+                            style={{ textDecoration: 'none', border: 'none', background: 'none' }}
+                            >
+                            &#8595;
+                        </button>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>

@@ -9,6 +9,7 @@ export class GeometryController {
 
   @Post()
   create(@Body() createGeometryDto: CreateGeometryDto) {
+    console.log("backend lefut")
     return this.geometryService.create(createGeometryDto);
   }
 

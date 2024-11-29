@@ -10,6 +10,7 @@ import Modify from './components/modify.tsx'
 import Toggle from './components/Toggle.tsx'
 import Navi from './components/Navi.tsx'
 import { Felvetel } from './components/Felvetel.tsx'
+import Rendezes from './components/Rendezes.tsx'
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/rendezes",
-    element: <Modify />
+    element: <Rendezes />
   },
   {
     path: "/paginacio",
