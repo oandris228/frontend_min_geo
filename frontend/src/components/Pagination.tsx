@@ -8,34 +8,35 @@ export default function Pagination(){
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
+    const [isNextPageAvailable, setIsNextPageAvailable] = useState<boolean>(true);
     const [fetchlink, setFetchlink] = useState("http://localhost:3000/geometry/pagination");
     const navigate = useNavigate();
 
 
     function handlePageChange(page: number): void {
         setCurrentPage(page);
-        setFetchlink(`http://localhost:3000/geometry/pagination?page=${page}`)
     }
 
     useEffect(() => {
       const fetchGeometries = async () => {
         try {
-          const response = await fetch(fetchlink);
+          const response = await fetch(`http://localhost:3000/geometry/pagination?page=${currentPage}`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const data = await response.json();
           setGeometries(data);
+          setIsNextPageAvailable(data.length > 0);
         } catch (err) {
           setError(err.message);
+          setIsNextPageAvailable(false);
         } finally {
           setLoading(false);
         }
       };
   
       fetchGeometries();
-    }, []);
+    }, [currentPage]);
 
     return <>
         <div className="container mt-4">
@@ -77,6 +78,7 @@ export default function Pagination(){
             <div>
                 <button
                     onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={!isNextPageAvailable}
                 >
                 Következő
                 </button>
