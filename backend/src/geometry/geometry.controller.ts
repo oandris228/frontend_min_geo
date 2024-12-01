@@ -1,14 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res } from '@nestjs/common';
 import { GeometryService } from './geometry.service';
 import { CreateGeometryDto } from './dto/create-geometry.dto';
 import { UpdateGeometryDto } from './dto/update-geometry.dto';
+import { Response } from 'express';
 
 @Controller('geometry')
 export class GeometryController {
   constructor(private readonly geometryService: GeometryService) {}
 
   @Post()
-  create(@Body() createGeometryDto: CreateGeometryDto) {
+  create(@Body() createGeometryDto: CreateGeometryDto, @Res() response: Response) {
     console.log("backend lefut")
     return this.geometryService.create(createGeometryDto);
   }

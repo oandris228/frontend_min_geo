@@ -11,7 +11,15 @@ export class GeometryService {
   create(createGeometryDto: CreateGeometryDto) {
     console.log("function lefut")
     return this.db.minimalgeometry.create({
-      data: createGeometryDto
+      data: {
+        name: createGeometryDto.name,
+        shape_type: createGeometryDto.shape_type,
+        defining_equation: createGeometryDto.defining_equation,
+        favorite_job: createGeometryDto.favorite_job,
+        curvature_personality: createGeometryDto.curvature_personality,
+        coolness: +createGeometryDto.coolness,
+        visibility: true
+      }
     });
   }
 

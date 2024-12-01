@@ -26,6 +26,15 @@ export default function Navi() {
                         <li className="nav-item">
                             <a className="nav-link" href="/novcsokk">Növelés/Csökkentés</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/felvetel">Felvétel</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/rendezes">Rendezés</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/paginacio">Pagináció</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
